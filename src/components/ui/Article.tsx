@@ -7,6 +7,7 @@ import {
   EditableInput,
   EditablePreview,
   IconButton,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, FC, useState } from "react";
 
@@ -30,17 +31,24 @@ const ArticleControls: FC<ArticleControlsProps> = ({
   onEdit,
 }) => {
   return isEditing ? (
-    <ButtonGroup justifyContent="center" size="sm">
-      <IconButton aria-label="Submit" icon={<CheckIcon />} onClick={onSubmit} />
+    <ButtonGroup justifyContent="center" size="md">
+      <IconButton
+        aria-label="Submit"
+        icon={<CheckIcon />}
+        onClick={onSubmit}
+        colorScheme="green"
+      />
       <IconButton aria-label="Cancel" icon={<CloseIcon />} onClick={onCancel} />
     </ButtonGroup>
   ) : (
     <Flex justifyContent="center">
       <IconButton
-        size="sm"
+        size="md"
         aria-label="Edit"
         icon={<EditIcon />}
         onClick={onEdit}
+        colorScheme="yellow"
+        backgroundColor="yellow.400"
       />
     </Flex>
   );
@@ -51,6 +59,8 @@ export const Article: FC<ArticleProps> = ({
   articleUrl,
   onDelete,
 }) => {
+  const colorMode = useColorModeValue("white", "gray.800");
+  const inputColor = useColorModeValue("gray.50", "gray.900");
   const [baseUrl, setBaseUrl] = useState(articleUrl);
   const [editing, setEditiing] = useState(false);
   const [url, setUrl] = useState(articleUrl);
@@ -85,6 +95,7 @@ export const Article: FC<ArticleProps> = ({
       borderRadius={12}
       align="center"
       shadow="lg"
+      backgroundColor={colorMode}
     >
       <Editable
         value={url}
@@ -95,29 +106,37 @@ export const Article: FC<ArticleProps> = ({
         onSubmit={handleOnSubmit}
         onChange={(event) => handleOnInputChange(event)}
         w="100%"
-        wordBreak="break-word"
+        // wordBreak="break-word"
+        overflow="hidden"
         selectAllOnFocus
+        backgroundColor={inputColor}
+        borderRadius={8}
+        py="2px"
+        // paddingStart={2}
+        shadow="inner"
       >
-        <Flex direction="row" justifyContent="space-between" align="center">
-          <EditablePreview paddingRight={4} maxwidth="100%" />
-          <EditableInput paddingRight={4} />
-
-          <Stack direction="row">
-            <ArticleControls
-              isEditing={editing}
-              onSubmit={handleOnSubmit}
-              onCancel={handleOnCancel}
-              onEdit={handleEditing}
-            />
-            <IconButton
-              size="sm"
-              aria-label="Delete"
-              icon={<DeleteIcon />}
-              onClick={onDelete}
-            />
-          </Stack>
-        </Flex>
+        {/* <Flex direction="row" justifyContent="space-between" align="center"> */}
+        <EditablePreview px={2} maxwidth="100%" />
+        <EditableInput px={2} />
+        {/* </Flex> */}
       </Editable>
+      <Stack direction="row" paddingLeft={4}>
+        <ArticleControls
+          isEditing={editing}
+          onSubmit={handleOnSubmit}
+          onCancel={handleOnCancel}
+          onEdit={handleEditing}
+        />
+        <IconButton
+          size="md"
+          aria-label="Delete"
+          icon={<DeleteIcon />}
+          onClick={onDelete}
+          colorScheme="red"
+          backgroundColor="red.500"
+          color="white"
+        />
+      </Stack>
     </Flex>
   );
 };

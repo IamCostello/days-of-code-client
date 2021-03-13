@@ -10,10 +10,33 @@ const articles = [
   "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
   "ahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadfahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
   "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
+  "ahsdfajkdfjsdfjwiefowhpeuifsadfsadf",
 ];
 
 export const ArticleList: FC<ArticleListProps> = ({}) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+
+  // <Center w="100%" h="100vh">
+  //   <Spinner />
+  // </Center>;
 
   return (
     <Flex

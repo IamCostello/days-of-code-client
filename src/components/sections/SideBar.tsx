@@ -21,6 +21,7 @@ import {
   UnorderedList,
   useMediaQuery,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
 import { AuthContext } from "../../context/auth";
@@ -34,7 +35,7 @@ interface SideBarProps {
 export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [user, loading] = useContext(AuthContext);
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const colorMode = useColorModeValue("white", "gray.800");
 
   return isLargerThan768 ? (
     drawerState ? (
@@ -49,6 +50,7 @@ export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
         // justifyContent="flex-end"
         p={4}
         // paddingTop={28}
+        backgroundColor={colorMode}
       >
         <Box>
           <Heading size="lg" marginBottom={4}>
