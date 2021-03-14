@@ -1,5 +1,5 @@
 import { useDisclosure } from "@chakra-ui/hooks";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, ListIcon, Stack } from "@chakra-ui/layout";
 import {
   Drawer,
@@ -41,8 +41,10 @@ export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
     drawerState ? (
       <Flex
         as="nav"
-        h="90vh"
-        w="20vw"
+        // h="90vh"
+        h="100%"
+        // w="20vw"
+        w="320px"
         overflow="auto"
         direction="column"
         justifyContent="space-between"
@@ -51,8 +53,17 @@ export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
         p={4}
         // paddingTop={28}
         backgroundColor={colorMode}
+        position="fixed"
+        left="0"
+        top="0"
       >
         <Box>
+          <Stack direction="row" height="100px" py="16px">
+            <Button onClick={onClose} variant="ghost">
+              <HamburgerIcon />
+            </Button>
+          </Stack>
+
           <Heading size="lg" marginBottom={4}>
             User
           </Heading>

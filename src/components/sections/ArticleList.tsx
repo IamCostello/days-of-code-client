@@ -42,7 +42,8 @@ export const ArticleList: FC<ArticleListProps> = ({}) => {
     <Flex
       direction="column"
       w={isLargerThan768 ? "80vw" : "100vw"}
-      h="90vh"
+      // h="90vh"
+      h="100%"
       overflow="auto"
       p={8}
     >

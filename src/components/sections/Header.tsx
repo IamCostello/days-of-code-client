@@ -16,6 +16,7 @@ import axiosClient from "../../config/axios";
 import { auth, providerGoogle } from "../../config/firebase";
 import { AuthContext } from "../../context/auth";
 import { StyleModeButton } from "../ui/StyleModeButton";
+import { useColorModeValue } from "@chakra-ui/react";
 
 interface HeaderProps {
   dashboard?: boolean;
@@ -25,6 +26,7 @@ interface HeaderProps {
 export const Header: FC<HeaderProps> = ({ dashboard, onDrawerToggle }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [user, loading] = useContext(AuthContext);
+  const colorMode = useColorModeValue("white", "gray.800");
 
   const handleLogout = () => {
     auth.signOut();
@@ -36,12 +38,15 @@ export const Header: FC<HeaderProps> = ({ dashboard, onDrawerToggle }) => {
       as="nav"
       justify="space-between"
       w="100%"
-      h="10vh"
+      // h="10vh"
+      h="100px"
       align="center"
       // marginBottom={8}
       px={4}
       // py={8}
-      // position="fixed"
+      position="fixed"
+      backgroundColor={colorMode}
+      zIndex="10"
     >
       <Box>
         {dashboard ? (
