@@ -46,9 +46,9 @@ const handleArticleResponse = async (
 //   return data;
 // };
 
-export const fetchArticles = (page: number, limit: number = 20, tag?: string) =>
+export const fetchArticles = (page: number, tag?: string, limit: number = 20) =>
   handleArticleResponse(
-    axiosClient.get<UserData>("/saved", { params: { page, limit } })
+    axiosClient.get<UserData>("/saved", { params: { page, limit, tag } })
   );
 
 export const createArticle = (url: string, tag: string) =>

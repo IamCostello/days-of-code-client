@@ -79,6 +79,7 @@ export const ArticleList: FC<ArticleListProps> = ({
           as={ChevronLeftIcon}
           onClick={onSetPreviousPage}
           opacity={page === 1 ? 0.2 : 1}
+          disabled={page === 1}
           size="lg"
           p={2}
           backgroundColor={buttonBackgroundColor}
@@ -93,6 +94,7 @@ export const ArticleList: FC<ArticleListProps> = ({
             }
           }}
           opacity={isPreviousData || !hasMore ? 0.2 : 1}
+          disabled={isPreviousData || !hasMore}
           size="lg"
           p={2}
           backgroundColor={buttonBackgroundColor}

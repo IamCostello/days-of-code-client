@@ -112,17 +112,23 @@ export const Article: FC<ArticleProps> = ({
         onSubmit={handleOnSubmit}
         onChange={(event) => handleOnInputChange(event)}
         w="100%"
+        h="50px"
         // wordBreak="break-word"
-        overflow="hidden"
+        overflowX="auto"
+        overflowY="hidden"
+        whiteSpace="nowrap"
         selectAllOnFocus
         backgroundColor={inputColor}
         borderRadius={8}
         py="2px"
-        // paddingStart={2}
+        paddingStart={2}
+        lineHeight={2}
         shadow="inner"
       >
         {/* <Flex direction="row" justifyContent="space-between" align="center"> */}
-        <EditablePreview px={2} maxwidth="100%" />
+        {/* <EditablePreview px={2} maxwidth="100%" />
+        <EditableInput px={2} maxwidth="100%" /> */}
+        <EditablePreview px={2} />
         <EditableInput px={2} />
         {/* </Flex> */}
       </Editable>

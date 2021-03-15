@@ -42,9 +42,7 @@ export const Dashboard: FC = () => {
   const colorMode = useColorModeValue("gray.100", "gray.900");
 
   const [page, setPage] = useState(1);
-  // const { data, status } = useQuery(["articles", page], () =>
-  //   fetchArticles(page, 2)
-  // );
+  const [queryTag, setQueryTag] = useState<string>("");
 
   const {
     isLoading,
@@ -53,9 +51,13 @@ export const Dashboard: FC = () => {
     data,
     isFetching,
     isPreviousData,
-  } = useQuery(["articles", page], () => fetchArticles(page), {
-    keepPreviousData: true,
-  });
+  } = useQuery(
+    ["articles", page, queryTag],
+    () => fetchArticles(page, queryTag),
+    {
+      keepPreviousData: true,
+    }
+  );
 
   const userTags = useQuery("tags", fetchUserTags);
 
@@ -158,6 +160,18 @@ export const Dashboard: FC = () => {
     userTagsDeleteMutation.mutate(tagName);
   };
 
+  const handleSetQueryTag = (tagName: string) => {
+    setPage(1);
+    setQueryTag((prev) => {
+      if (prev === tagName) {
+        return "";
+      } else {
+        return tagName;
+      }
+    });
+    queryClient.invalidateQueries("articles");
+  };
+
   console.log("Rendering dashboard");
 
   return (
@@ -179,6 +193,8 @@ export const Dashboard: FC = () => {
           tags={userTags.data || []}
           onTagFormSubmit={handleOnCreateTag}
           onTagDelete={handleOnDeleteTag}
+          isLoading={userTags.isLoading}
+          onQueryTagChange={handleSetQueryTag}
         />
         <ArticleList
           articles={data?.results || []}

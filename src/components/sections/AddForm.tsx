@@ -36,10 +36,15 @@ export const AddForm: FC<AddFormProps> = ({ onSubmit, tags }) => {
 
   return (
     <Stack spacing={4} p={2}>
-      <form onSubmit={handleSubmit((data) => onSubmit(data.url, data.tag))}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          onSubmit(data.url, data.tag);
+          reset();
+        })}
+      >
         <FormControl>
           <FormLabel>Article url</FormLabel>
-          <Input name="url" type="url" ref={register({ required: true })} />
+          <Input name="url" type="text" ref={register({ required: true })} />
           <FormErrorMessage>
             {errors.url && errors.url.message}
           </FormErrorMessage>
@@ -49,7 +54,7 @@ export const AddForm: FC<AddFormProps> = ({ onSubmit, tags }) => {
           <Select name="tag" ref={register}>
             <option>none</option>
             {tags.map((tag) => (
-              <option>{tag}</option>
+              <option key={tag}>{tag}</option>
             ))}
           </Select>
         </FormControl>

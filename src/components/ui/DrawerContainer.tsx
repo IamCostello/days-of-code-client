@@ -33,18 +33,15 @@ export const DrawerContainer: FC<DrawerContainerProps> = ({
     isOpen ? (
       <Flex
         as="nav"
-        // h="90vh"
         h="100%"
-        // w="20vw"
         w="320px"
         overflow="auto"
         direction="column"
         justifyContent="space-between"
         shadow="base"
-        // justifyContent="flex-end"
         p={4}
         pe={8}
-        // paddingTop={28}
+        paddingTop={28}
         backgroundColor={colorMode}
         position="fixed"
         left="0"
@@ -67,6 +64,7 @@ export const DrawerContainer: FC<DrawerContainerProps> = ({
           p={4}
           pe={8}
           width="inherit"
+          zIndex="10"
         >
           <StyleModeButton />
         </Flex>
