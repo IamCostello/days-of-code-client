@@ -24,7 +24,6 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ dashboard, onDrawerToggle }) => {
-  const [showMenu, setShowMenu] = useState(false);
   const [user, loading] = useContext(AuthContext);
   const colorMode = useColorModeValue("white", "gray.800");
 

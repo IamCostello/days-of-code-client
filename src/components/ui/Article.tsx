@@ -13,8 +13,10 @@ import React, { ChangeEvent, FC, useState } from "react";
 
 interface ArticleProps {
   articleUrl: string;
-  onUpdate: () => void;
-  onDelete: () => void;
+  archived: boolean;
+  onUpdate: (articleId: string, newUrl: string) => void;
+  onDelete: (articleId: string) => void;
+  id: string;
 }
 
 interface ArticleControlsProps {
@@ -56,8 +58,10 @@ const ArticleControls: FC<ArticleControlsProps> = ({
 
 export const Article: FC<ArticleProps> = ({
   onUpdate,
+  archived,
   articleUrl,
   onDelete,
+  id,
 }) => {
   const colorMode = useColorModeValue("white", "gray.800");
   const inputColor = useColorModeValue("gray.50", "gray.900");
@@ -66,8 +70,8 @@ export const Article: FC<ArticleProps> = ({
   const [url, setUrl] = useState(articleUrl);
 
   const handleOnSubmit = () => {
-    // onUpdate();
-    alert(url);
+    onUpdate(id, url);
+    // alert(url);
     setBaseUrl(url);
     setEditiing(false);
   };
@@ -131,7 +135,7 @@ export const Article: FC<ArticleProps> = ({
           size="md"
           aria-label="Delete"
           icon={<DeleteIcon />}
-          onClick={onDelete}
+          onClick={() => onDelete(id)}
           colorScheme="red"
           backgroundColor="red.500"
           color="white"

@@ -14,6 +14,7 @@ import axiosClient, {
   ejectAuthTokenInterceptor,
 } from "../config/axios";
 import axios, { AxiosInstance } from "axios";
+import { useQueryClient } from "react-query";
 
 type AuthStatus = [user: firebase.User | null, loading: boolean];
 
@@ -24,6 +25,7 @@ export const AuthContext = React.createContext<AuthStatus>([null, true]);
 export const AuthStateProvider: FC = ({ children }) => {
   const [user, setUser] = useState<CurrentUser>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -36,6 +38,8 @@ export const AuthStateProvider: FC = ({ children }) => {
           addAuthTokenInterceptor(token);
         });
       } else {
+        // queryClient.invalidateQueries("articles");
+        queryClient.removeQueries("articles");
         setUser(null);
         ejectAuthTokenInterceptor();
       }

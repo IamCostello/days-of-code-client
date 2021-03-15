@@ -24,18 +24,27 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { FC, useContext } from "react";
+import { useQueryClient } from "react-query";
 import { AuthContext } from "../../context/auth";
 import { StyleModeButton } from "../ui/StyleModeButton";
+import { AddForm } from "./AddForm";
 
 interface SideBarProps {
   drawerState: boolean;
   onClose: () => void;
+  onSubmit: (url: string, tag: string) => void;
 }
 
-export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
+export const SideBar: FC<SideBarProps> = ({
+  drawerState,
+  onClose,
+  onSubmit,
+}) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [user, loading] = useContext(AuthContext);
   const colorMode = useColorModeValue("white", "gray.800");
+
+  console.log("Rendering sidebar");
 
   return isLargerThan768 ? (
     drawerState ? (
@@ -68,12 +77,30 @@ export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
             User
           </Heading>
 
-          <Stack marginBottom={4} paddingStart={6}>
-            <Text>{user?.displayName}</Text>
-            <Text>{user?.email}</Text>
+          <Stack marginBottom={4} ps={2}>
+            <Text opacity="0.5" paddingStart={0}>
+              username
+            </Text>
+            <Text fontSize="lg" paddingStart={2}>
+              {user?.displayName}
+            </Text>
+            <Text opacity="0.5" paddingStart={0}>
+              email
+            </Text>
+            <Text fontSize="lg" paddingStart={2}>
+              {user?.email}
+            </Text>
           </Stack>
 
-          <Divider />
+          <Divider my={8} />
+
+          <Heading size="lg" marginBottom={4}>
+            Add new article
+          </Heading>
+
+          <AddForm onSubmit={onSubmit} />
+
+          <Divider my={8} />
 
           <Heading size="lg" my={4}>
             Tags
@@ -113,12 +140,30 @@ export const SideBar: FC<SideBarProps> = ({ drawerState, onClose }) => {
               User
             </Heading>
 
-            <Stack marginBottom={4} paddingStart={6}>
-              <Text>{user?.displayName}</Text>
-              <Text>{user?.email}</Text>
+            <Stack marginBottom={4}>
+              <Text opacity="0.5" paddingStart={0}>
+                username
+              </Text>
+              <Text fontSize="lg" paddingStart={2}>
+                {user?.displayName}
+              </Text>
+              <Text opacity="0.5" paddingStart={0}>
+                email
+              </Text>
+              <Text fontSize="lg" paddingStart={2}>
+                {user?.email}
+              </Text>
             </Stack>
 
-            <Divider />
+            <Divider my={4} />
+
+            <Heading size="lg" marginBottom={4}>
+              Add new article
+            </Heading>
+
+            <AddForm onSubmit={onSubmit} />
+
+            <Divider my={4} />
 
             <Heading size="lg" my={4}>
               Tags
