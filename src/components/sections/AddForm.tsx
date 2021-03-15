@@ -16,6 +16,7 @@ import { createArticle, SavedData } from "../../api/articles";
 
 interface AddFormProps {
   onSubmit: (url: string, tag: string) => void;
+  tags: string[];
 }
 
 type AddFormInputs = {
@@ -23,7 +24,7 @@ type AddFormInputs = {
   tag: string;
 };
 
-export const AddForm: FC<AddFormProps> = ({ onSubmit }) => {
+export const AddForm: FC<AddFormProps> = ({ onSubmit, tags }) => {
   const {
     register,
     handleSubmit,
@@ -43,12 +44,13 @@ export const AddForm: FC<AddFormProps> = ({ onSubmit }) => {
             {errors.url && errors.url.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl pt={2}>
           <FormLabel>Article tag</FormLabel>
           <Select name="tag" ref={register}>
             <option>none</option>
-            <option>React</option>
-            <option>Python</option>
+            {tags.map((tag) => (
+              <option>{tag}</option>
+            ))}
           </Select>
         </FormControl>
         <Button w="100%" type="submit" mt={4} colorScheme="green">

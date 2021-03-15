@@ -1,5 +1,12 @@
 import { useDisclosure } from "@chakra-ui/hooks";
-import { ChevronRightIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  ChevronRightIcon,
+  HamburgerIcon,
+  Icon,
+  SmallAddIcon,
+  SmallCloseIcon,
+} from "@chakra-ui/icons";
 import { Box, Flex, Heading, ListIcon, Stack } from "@chakra-ui/layout";
 import {
   Drawer,
@@ -22,8 +29,12 @@ import {
   useMediaQuery,
   Text,
   useColorModeValue,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  IconButton,
 } from "@chakra-ui/react";
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState, MouseEventHandler } from "react";
 import { useQueryClient } from "react-query";
 import { AuthContext } from "../../context/auth";
 import { StyleModeButton } from "../ui/StyleModeButton";
@@ -33,16 +44,36 @@ interface SideBarProps {
   drawerState: boolean;
   onClose: () => void;
   onSubmit: (url: string, tag: string) => void;
+  tags: string[];
+  onTagFormSubmit: (tagName: string) => void;
+  onTagDelete: (tagName: string) => void;
 }
+
+const tagColors = [
+  "blue",
+  "green",
+  "purple",
+  "teal",
+  "pink",
+  "cyan",
+  "yellow",
+  "red",
+  "gray",
+  "orange",
+];
 
 export const SideBar: FC<SideBarProps> = ({
   drawerState,
   onClose,
   onSubmit,
+  tags,
+  onTagFormSubmit,
+  onTagDelete,
 }) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [user, loading] = useContext(AuthContext);
   const colorMode = useColorModeValue("white", "gray.800");
+  const [tagForm, setTagform] = useState("");
 
   console.log("Rendering sidebar");
 
@@ -98,7 +129,7 @@ export const SideBar: FC<SideBarProps> = ({
             Add new article
           </Heading>
 
-          <AddForm onSubmit={onSubmit} />
+          <AddForm tags={tags} onSubmit={onSubmit} />
 
           <Divider my={8} />
 
@@ -106,23 +137,66 @@ export const SideBar: FC<SideBarProps> = ({
             Tags
           </Heading>
           <List spacing={3}>
-            <ListItem>
-              <ListIcon as={ChevronRightIcon} />
-              <Tag size="md">React</Tag>
-            </ListItem>
-            <ListItem>
-              <ListIcon as={ChevronRightIcon} />
-              <Tag size="md">Angular</Tag>
-            </ListItem>
-            <ListItem>
-              <ListIcon as={ChevronRightIcon} />
-              <Tag size="md">Python</Tag>
-            </ListItem>
-            <ListItem>
-              <ListIcon as={ChevronRightIcon} />
-              <Tag size="md">Machine learning</Tag>
-            </ListItem>
+            {tags.map((tag, i) => (
+              <Stack key="tag" direction="row">
+                <ListItem>
+                  <ListIcon as={ChevronRightIcon} />
+                  <Tag
+                    verticalAlign="middle"
+                    size="lg"
+                    lineHeight={8}
+                    _hover={{ cursor: "pointer" }}
+                    colorScheme={tagColors[i]}
+                  >
+                    {tag}
+                  </Tag>
+                </ListItem>
+                <IconButton
+                  as={SmallCloseIcon}
+                  aria-label="Delete tag"
+                  backgroundColor="transparent"
+                  opacity="0.1"
+                  _hover={{ cursor: "pointer", opacity: "0.6" }}
+                  p={2}
+                  size="sm"
+                  ms={0}
+                  onClick={() => onTagDelete(tag)}
+                />
+              </Stack>
+            ))}
           </List>
+
+          {tags.length < 10 && (
+            <InputGroup mt={2} mb={4}>
+              <InputRightElement
+                py={2}
+                pointerEvents="auto"
+                children={
+                  <IconButton
+                    as={AddIcon}
+                    aria-label="Add new tag"
+                    backgroundColor="transparent"
+                    color="gray.300"
+                    size="sm"
+                    padding="2"
+                    type="submit"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      onTagFormSubmit(tagForm);
+                      setTagform("");
+                    }}
+                  />
+                }
+              />
+              <Input
+                value={tagForm}
+                onChange={(event) => setTagform(event.target.value)}
+                type="text"
+                placeholder="Add new tag"
+                variant="flushed"
+              />
+            </InputGroup>
+          )}
         </Box>
         <Flex>
           <StyleModeButton />
@@ -161,7 +235,7 @@ export const SideBar: FC<SideBarProps> = ({
               Add new article
             </Heading>
 
-            <AddForm onSubmit={onSubmit} />
+            <AddForm tags={tags} onSubmit={onSubmit} />
 
             <Divider my={4} />
 

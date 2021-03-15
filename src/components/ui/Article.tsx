@@ -10,6 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, FC, useState } from "react";
+import { isRegularExpressionLiteral } from "typescript";
 
 interface ArticleProps {
   articleUrl: string;
@@ -70,9 +71,10 @@ export const Article: FC<ArticleProps> = ({
   const [url, setUrl] = useState(articleUrl);
 
   const handleOnSubmit = () => {
-    onUpdate(id, url);
-    // alert(url);
-    setBaseUrl(url);
+    if (baseUrl != url) {
+      onUpdate(id, url);
+      setBaseUrl(url);
+    }
     setEditiing(false);
   };
 

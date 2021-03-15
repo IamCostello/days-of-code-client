@@ -13,9 +13,12 @@ export interface UserData {
   next: number;
   previous: number;
   hasMore: boolean;
+  tags: string[];
 }
 
-const handleResponse = async (call: Promise<AxiosResponse<UserData>>) => {
+const handleArticleResponse = async (
+  call: Promise<AxiosResponse<UserData>>
+) => {
   const { data } = await call;
   console.log(data);
   console.log(data.results);
@@ -44,7 +47,7 @@ const handleResponse = async (call: Promise<AxiosResponse<UserData>>) => {
 // };
 
 export const fetchArticles = (page: number, limit: number = 20, tag?: string) =>
-  handleResponse(
+  handleArticleResponse(
     axiosClient.get<UserData>("/saved", { params: { page, limit } })
   );
 

@@ -85,7 +85,6 @@ export const ArticleList: FC<ArticleListProps> = ({
           color={buttonColor}
         />
         <IconButton
-          conButton
           aria-label="Next page"
           as={ChevronRightIcon}
           onClick={() => {

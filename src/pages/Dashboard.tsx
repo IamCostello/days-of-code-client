@@ -32,6 +32,7 @@ import {
 import { AddForm } from "../components/sections/AddForm";
 import { AxiosError } from "axios";
 import { NotificationPopUp } from "../components/ui/NotificationPopUp";
+import { createUserTag, fetchUserTags, deleteUserTag } from "../api/tags";
 
 export const Dashboard: FC = () => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
@@ -55,6 +56,24 @@ export const Dashboard: FC = () => {
   } = useQuery(["articles", page], () => fetchArticles(page), {
     keepPreviousData: true,
   });
+
+  const userTags = useQuery("tags", fetchUserTags);
+
+  const userTagsCreateMutation = useMutation(
+    "tags",
+    (data: string) => createUserTag(data),
+    {
+      onSuccess: () => queryClient.invalidateQueries("tags"),
+    }
+  );
+
+  const userTagsDeleteMutation = useMutation(
+    "tags",
+    (data: string) => deleteUserTag(data),
+    {
+      onSuccess: () => queryClient.invalidateQueries("tags"),
+    }
+  );
 
   const handleDrawerToggle = () => {
     if (isOpen) {
@@ -131,6 +150,14 @@ export const Dashboard: FC = () => {
     patchMutation.mutate({ _id: articleId, url: newUrl } as SavedData);
   };
 
+  const handleOnCreateTag = (tagName: string) => {
+    userTagsCreateMutation.mutate(tagName);
+  };
+
+  const handleOnDeleteTag = (tagName: string) => {
+    userTagsDeleteMutation.mutate(tagName);
+  };
+
   console.log("Rendering dashboard");
 
   return (
@@ -149,6 +176,9 @@ export const Dashboard: FC = () => {
           drawerState={isOpen}
           onClose={onClose}
           onSubmit={handleOnCreateArticle}
+          tags={userTags.data || []}
+          onTagFormSubmit={handleOnCreateTag}
+          onTagDelete={handleOnDeleteTag}
         />
         <ArticleList
           articles={data?.results || []}
