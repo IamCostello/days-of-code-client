@@ -4,15 +4,15 @@ const axiosClient = axios.create({
   baseURL: "http://localhost:9000",
 });
 
-axiosClient.interceptors.request.use((req) => {
-  console.log("[REQUEST]", req);
-  return req;
-});
+// axiosClient.interceptors.request.use((req) => {
+//   console.log("[REQUEST]", req);
+//   return req;
+// });
 
-axiosClient.interceptors.response.use((res) => {
-  console.log("[RESPONSE]", res);
-  return res;
-});
+// axiosClient.interceptors.response.use((res) => {
+//   console.log("[RESPONSE]", res);
+//   return res;
+// });
 
 let authTokenInterceptor: number;
 

@@ -21,61 +21,37 @@ import { SideBar } from "../components/sections/SideBar";
 import { AddButton } from "../components/ui/AddButton";
 import { Article } from "../components/ui/Article";
 import axiosClient from "../config/axios";
-import {
-  changeArticleUrl,
-  createArticle,
-  deleteArticle,
-  fetchArticles,
-  SavedData,
-  UserData,
-} from "../api/articles";
 import { AddForm } from "../components/sections/AddForm";
 import { AxiosError } from "axios";
 import { NotificationPopUp } from "../components/ui/NotificationPopUp";
-import { createUserTag, fetchUserTags, deleteUserTag } from "../api/tags";
+import useArticles from "../api/useArticles";
+import useTags from "../api/useTags";
+import useCreateArticle from "../api/useCreateArticle";
+import useDeleteArticle from "../api/useDeleteArticle";
+import useCreateTag from "../api/useCreateTag";
+import useDeleteTag from "../api/useDeleteTag";
+import useEditArticle from "../api/useEditArticle";
 
 export const Dashboard: FC = () => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const colorMode = useColorModeValue("gray.100", "gray.900");
   const { isOpen, onOpen, onClose } = useDisclosure({
     defaultIsOpen: isLargerThan768,
   });
-  const colorMode = useColorModeValue("gray.100", "gray.900");
 
   const [page, setPage] = useState(1);
   const [queryTag, setQueryTag] = useState<string>("");
 
-  const {
-    isLoading,
-    isError,
-    error,
-    data,
-    isFetching,
-    isPreviousData,
-  } = useQuery(
-    ["articles", page, queryTag],
-    () => fetchArticles(page, queryTag),
-    {
-      keepPreviousData: true,
-    }
+  const { data: userArticles, isLoading, isPreviousData } = useArticles(
+    page,
+    queryTag
   );
-
-  const userTags = useQuery("tags", fetchUserTags);
-
-  const userTagsCreateMutation = useMutation(
-    "tags",
-    (data: string) => createUserTag(data),
-    {
-      onSuccess: () => queryClient.invalidateQueries("tags"),
-    }
-  );
-
-  const userTagsDeleteMutation = useMutation(
-    "tags",
-    (data: string) => deleteUserTag(data),
-    {
-      onSuccess: () => queryClient.invalidateQueries("tags"),
-    }
-  );
+  const { mutate: createArticle } = useCreateArticle(page, queryTag);
+  const { mutate: deleteArticle } = useDeleteArticle(page, queryTag);
+  const { mutate: editArticle } = useEditArticle();
+  const { data: userTags, isLoading: isUserTagsLoading } = useTags();
+  const { mutate: createTag } = useCreateTag();
+  const { mutate: deleteTag } = useDeleteTag();
 
   const handleDrawerToggle = () => {
     if (isOpen) {
@@ -95,69 +71,43 @@ export const Dashboard: FC = () => {
 
   const queryClient = useQueryClient();
 
-  const createMutation = useMutation(
-    "articles",
-    (data: SavedData) => createArticle(data.url, data.tag),
-    {
-      onSuccess: () => {
-        if (data?.results.length! < 20) {
-          queryClient.invalidateQueries("articles");
-        }
-      },
-    }
-  );
-
-  const deleteMutation = useMutation(
-    "articles",
-    (data: SavedData) => deleteArticle(data._id),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("articles");
-      },
-    }
-  );
-
-  const patchMutation = useMutation(
-    "articles",
-    (data: SavedData) => changeArticleUrl(data._id, data.url),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("articles");
-      },
-    }
-  );
+  // const patchMutation = useMutation(
+  //   "articles",
+  //   (data: SavedData) => changeArticleUrl(data._id, data.url),
+  //   {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries("articles");
+  //     },
+  //   }
+  // );
 
   const handleOnCreateArticle = (url: string, tag: string) => {
-    console.log(url, tag);
-    // createArticle(url, tag);
-    // mutation();
-    createMutation.mutate({ url, tag } as SavedData);
+    createArticle({ url, tag });
 
-    if (createMutation.isSuccess) {
-      // toast({
-      //   title: "asd",
-      //   description: { url },
-      //   isClosable: true,
-      //   duration: 2000,
-      // });
-    }
+    // if (createMutation.isSuccess) {
+    // toast({
+    //   title: "asd",
+    //   description: { url },
+    //   isClosable: true,
+    //   duration: 2000,
+    // });
+    // }
   };
 
   const handleOnDeleteArticle = (articleId: string) => {
-    // queryClient.invalidateQueries("articles");
-    deleteMutation.mutate({ _id: articleId } as SavedData);
+    deleteArticle(articleId);
   };
 
   const handleOnEditArticle = (articleId: string, newUrl: string) => {
-    patchMutation.mutate({ _id: articleId, url: newUrl } as SavedData);
+    editArticle({ articleId, newUrl });
   };
 
   const handleOnCreateTag = (tagName: string) => {
-    userTagsCreateMutation.mutate(tagName);
+    createTag(tagName);
   };
 
   const handleOnDeleteTag = (tagName: string) => {
-    userTagsDeleteMutation.mutate(tagName);
+    deleteTag(tagName);
   };
 
   const handleSetQueryTag = (tagName: string) => {
@@ -171,8 +121,6 @@ export const Dashboard: FC = () => {
     });
     queryClient.invalidateQueries("articles");
   };
-
-  console.log("Rendering dashboard");
 
   return (
     <Flex direction="column">
@@ -194,20 +142,20 @@ export const Dashboard: FC = () => {
           drawerState={isOpen}
           onClose={onClose}
           onSubmit={handleOnCreateArticle}
-          tags={userTags.data || []}
+          tags={userTags || []}
           activeTag={queryTag}
           onTagFormSubmit={handleOnCreateTag}
           onTagDelete={handleOnDeleteTag}
-          isLoading={userTags.isLoading}
+          isLoading={isUserTagsLoading}
           onQueryTagChange={handleSetQueryTag}
         />
         <ArticleList
-          articles={data?.results || []}
+          articles={userArticles?.results || []}
           page={page}
           onSetNextPage={handleSetNextPage}
           onSetPreviousPage={handleSetPreviousPage}
           isPreviousData={isPreviousData}
-          hasMore={data?.hasMore || false}
+          hasMore={userArticles?.hasMore || false}
           isLoading={isLoading}
           onArticleDelete={handleOnDeleteArticle}
           onArticleEdit={handleOnEditArticle}

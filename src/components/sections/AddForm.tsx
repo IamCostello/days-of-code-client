@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
-import { createArticle, SavedData } from "../../api/articles";
 
 interface AddFormProps {
   onSubmit: (url: string, tag: string) => void;

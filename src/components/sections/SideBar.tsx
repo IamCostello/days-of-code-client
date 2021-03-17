@@ -85,8 +85,6 @@ export const SideBar: FC<SideBarProps> = ({
   const colorModeAccent = useColorModeValue("gray.50", "gray.900");
   const [tagForm, setTagform] = useState("");
 
-  console.log("Rendering sidebar");
-
   return (
     <DrawerContainer
       isOpen={drawerState}
