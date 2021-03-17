@@ -1,15 +1,7 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
-  ArrowBackIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
-import {
-  Button,
   Center,
   Flex,
-  Icon,
   IconButton,
   Spinner,
   Stack,

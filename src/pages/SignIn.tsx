@@ -9,9 +9,7 @@ interface SignInProps {}
 
 export const SignIn: FC<SignInProps> = ({}) => {
   const handleNewLogin = (token: string) => {
-    axiosClient
-      .post("/auth/signup", {}, { headers: { authtoken: token } })
-      .then((response) => console.log(response));
+    axiosClient.post("/auth/signup", {}, { headers: { authtoken: token } });
   };
 
   const handleLoginWithGoogle = () => {

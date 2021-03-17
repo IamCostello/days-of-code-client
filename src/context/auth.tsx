@@ -1,19 +1,10 @@
-import React, {
-  createContext,
-  SetStateAction,
-  Dispatch,
-  FC,
-  useEffect,
-  useState,
-} from "react";
+import React, { FC, useEffect, useState } from "react";
 import firebase from "firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
-import axiosClient, {
+import {
   addAuthTokenInterceptor,
   ejectAuthTokenInterceptor,
 } from "../config/axios";
-import axios, { AxiosInstance } from "axios";
 import { useQueryClient } from "react-query";
 
 type AuthStatus = [user: firebase.User | null, loading: boolean];
@@ -38,7 +29,6 @@ export const AuthStateProvider: FC = ({ children }) => {
           addAuthTokenInterceptor(token);
         });
       } else {
-        // queryClient.invalidateQueries("articles");
         queryClient.removeQueries("articles");
         setUser(null);
         ejectAuthTokenInterceptor();

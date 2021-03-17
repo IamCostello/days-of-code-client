@@ -1,46 +1,25 @@
-import { useDisclosure } from "@chakra-ui/hooks";
+import { AddIcon, ChevronRightIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import { Box, Heading, ListIcon, Stack } from "@chakra-ui/layout";
 import {
-  AddIcon,
-  ChevronRightIcon,
-  HamburgerIcon,
-  Icon,
-  SmallAddIcon,
-  SmallCloseIcon,
-} from "@chakra-ui/icons";
-import { Box, Flex, Heading, ListIcon, Stack } from "@chakra-ui/layout";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-} from "@chakra-ui/modal";
-import {
-  Button,
   Divider,
-  DrawerFooter,
   Input,
   List,
   ListItem,
-  MenuItem,
   Tag,
-  UnorderedList,
   useMediaQuery,
   Text,
   useColorModeValue,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
   IconButton,
   Center,
   Spinner,
 } from "@chakra-ui/react";
-import React, { FC, useContext, useState, MouseEventHandler } from "react";
-import { useQueryClient } from "react-query";
+import React, { FC, useContext, useState } from "react";
+
 import { AuthContext } from "../../context/auth";
 import { DrawerContainer } from "../ui/DrawerContainer";
-import { StyleModeButton } from "../ui/StyleModeButton";
+
 import { AddForm } from "./AddForm";
 
 interface SideBarProps {

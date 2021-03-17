@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:9000",
+  baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 // axiosClient.interceptors.request.use((req) => {

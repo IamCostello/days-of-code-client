@@ -1,7 +1,6 @@
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, Stack } from "@chakra-ui/layout";
 import {
-  Box,
   ButtonGroup,
   Editable,
   EditableInput,
@@ -9,8 +8,7 @@ import {
   IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { ChangeEvent, FC, useState } from "react";
-import { isRegularExpressionLiteral } from "typescript";
+import React, { FC, useState } from "react";
 
 interface ArticleProps {
   articleUrl: string;
@@ -71,7 +69,7 @@ export const Article: FC<ArticleProps> = ({
   const [url, setUrl] = useState(articleUrl);
 
   const handleOnSubmit = () => {
-    if (baseUrl != url) {
+    if (baseUrl !== url) {
       onUpdate(id, url);
       setBaseUrl(url);
     }
@@ -85,7 +83,6 @@ export const Article: FC<ArticleProps> = ({
 
   const handleOnInputChange = (event: string) => {
     setUrl(event);
-    console.log(event);
   };
 
   const handleEditing = () => {
@@ -113,7 +110,6 @@ export const Article: FC<ArticleProps> = ({
         onChange={(event) => handleOnInputChange(event)}
         w="100%"
         h="50px"
-        // wordBreak="break-word"
         overflowX="auto"
         overflowY="hidden"
         css={{
@@ -130,12 +126,8 @@ export const Article: FC<ArticleProps> = ({
         lineHeight={2}
         shadow="inner"
       >
-        {/* <Flex direction="row" justifyContent="space-between" align="center"> */}
-        {/* <EditablePreview px={2} maxwidth="100%" />
-        <EditableInput px={2} maxwidth="100%" /> */}
         <EditablePreview px={2} />
         <EditableInput px={2} />
-        {/* </Flex> */}
       </Editable>
       <Stack direction="row" paddingLeft={4}>
         <ArticleControls

@@ -1,14 +1,11 @@
 import {
   Button,
-  Flex,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Input,
   Select,
   Stack,
-  useToast,
 } from "@chakra-ui/react";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -31,7 +28,6 @@ export const AddForm: FC<AddFormProps> = ({ onSubmit, tags }) => {
     errors,
     reset,
   } = useForm<AddFormInputs>();
-  // const onSubmit = (data: any) => console.log(data);
 
   return (
     <Stack spacing={4} p={2}>

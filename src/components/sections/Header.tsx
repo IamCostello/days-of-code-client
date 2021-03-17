@@ -6,16 +6,14 @@ import {
   Menu,
   MenuButton,
   MenuGroup,
-  MenuIcon,
   MenuItem,
   MenuList,
 } from "@chakra-ui/menu";
 import { Link } from "react-router-dom";
-import React, { FC, useContext, useState } from "react";
-import axiosClient from "../../config/axios";
-import { auth, providerGoogle } from "../../config/firebase";
+import React, { FC, useContext } from "react";
+
+import { auth } from "../../config/firebase";
 import { AuthContext } from "../../context/auth";
-import { StyleModeButton } from "../ui/StyleModeButton";
 import { useColorModeValue } from "@chakra-ui/react";
 
 interface HeaderProps {
@@ -42,12 +40,9 @@ export const Header: FC<HeaderProps> = ({
       as="nav"
       justify="space-between"
       w="100%"
-      // h="10vh"
       h="100px"
       align="center"
-      // marginBottom={8}
       px={4}
-      // py={8}
       position="fixed"
       backgroundColor={colorMode}
       zIndex="10"

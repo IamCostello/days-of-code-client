@@ -1,29 +1,15 @@
 import {
-  Box,
-  Button,
   Flex,
   Stack,
   useColorModeValue,
   useDisclosure,
   useMediaQuery,
-  useToast,
 } from "@chakra-ui/react";
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
+import { useQueryClient } from "react-query";
 import React, { FC, useState } from "react";
 import { ArticleList } from "../components/sections/ArticleList";
 import { Header } from "../components/sections/Header";
 import { SideBar } from "../components/sections/SideBar";
-import { AddButton } from "../components/ui/AddButton";
-import { Article } from "../components/ui/Article";
-import axiosClient from "../config/axios";
-import { AddForm } from "../components/sections/AddForm";
-import { AxiosError } from "axios";
-import { NotificationPopUp } from "../components/ui/NotificationPopUp";
 import useArticles from "../api/useArticles";
 import useTags from "../api/useTags";
 import useCreateArticle from "../api/useCreateArticle";
@@ -41,6 +27,8 @@ export const Dashboard: FC = () => {
 
   const [page, setPage] = useState(1);
   const [queryTag, setQueryTag] = useState<string>("");
+
+  const queryClient = useQueryClient();
 
   const { data: userArticles, isLoading, isPreviousData } = useArticles(
     page,
@@ -69,29 +57,8 @@ export const Dashboard: FC = () => {
     setPage((prev) => Math.max(prev - 1, 1));
   };
 
-  const queryClient = useQueryClient();
-
-  // const patchMutation = useMutation(
-  //   "articles",
-  //   (data: SavedData) => changeArticleUrl(data._id, data.url),
-  //   {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries("articles");
-  //     },
-  //   }
-  // );
-
   const handleOnCreateArticle = (url: string, tag: string) => {
     createArticle({ url, tag });
-
-    // if (createMutation.isSuccess) {
-    // toast({
-    //   title: "asd",
-    //   description: { url },
-    //   isClosable: true,
-    //   duration: 2000,
-    // });
-    // }
   };
 
   const handleOnDeleteArticle = (articleId: string) => {

@@ -1,7 +1,6 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
-  color,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -37,7 +36,6 @@ export const DrawerContainer: FC<DrawerContainerProps> = ({
         w="320px"
         overflow="auto"
         direction="column"
-        // justifyContent="space-between"
         shadow="base"
         p={4}
         pe={8}
