@@ -48,6 +48,7 @@ interface SideBarProps {
   onClose: () => void;
   onSubmit: (url: string, tag: string) => void;
   tags: string[];
+  activeTag: string;
   onTagFormSubmit: (tagName: string) => void;
   onTagDelete: (tagName: string) => void;
   isLoading: boolean;
@@ -72,6 +73,7 @@ export const SideBar: FC<SideBarProps> = ({
   onClose,
   onSubmit,
   tags,
+  activeTag,
   onTagFormSubmit,
   onTagDelete,
   isLoading,
@@ -147,10 +149,15 @@ export const SideBar: FC<SideBarProps> = ({
             tags.map((tag, i) => (
               <Stack key={tag} direction="row">
                 <ListItem>
-                  <ListIcon as={ChevronRightIcon} />
+                  <ListIcon
+                    as={ChevronRightIcon}
+                    boxSize={activeTag === tag ? 8 : 4}
+                    lineHeight={8}
+                    verticalAlign="middle"
+                  />
                   <Tag
                     verticalAlign="middle"
-                    size="lg"
+                    size={activeTag === tag ? "lg" : "md"}
                     lineHeight={8}
                     _hover={{ cursor: "pointer" }}
                     colorScheme={tagColors[i]}

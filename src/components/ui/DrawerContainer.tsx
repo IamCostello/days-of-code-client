@@ -37,7 +37,7 @@ export const DrawerContainer: FC<DrawerContainerProps> = ({
         w="320px"
         overflow="auto"
         direction="column"
-        justifyContent="space-between"
+        // justifyContent="space-between"
         shadow="base"
         p={4}
         pe={8}
@@ -73,7 +73,7 @@ export const DrawerContainer: FC<DrawerContainerProps> = ({
   ) : (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left">
       <DrawerOverlay>
-        <DrawerContent>
+        <DrawerContent backgroundColor={colorMode}>
           <DrawerCloseButton />
           <DrawerHeader>Account</DrawerHeader>
           <DrawerBody>{children}</DrawerBody>

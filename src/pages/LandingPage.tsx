@@ -7,7 +7,7 @@ interface LandingPageProps {}
 export const LandingPage: FC<LandingPageProps> = ({}) => {
   return (
     <Flex direction="column">
-      <Header />
+      <Header drawerState={false} onDrawerToggle={() => null} />
     </Flex>
   );
 };

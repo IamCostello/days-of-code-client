@@ -116,6 +116,11 @@ export const Article: FC<ArticleProps> = ({
         // wordBreak="break-word"
         overflowX="auto"
         overflowY="hidden"
+        css={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
         whiteSpace="nowrap"
         selectAllOnFocus
         backgroundColor={inputColor}

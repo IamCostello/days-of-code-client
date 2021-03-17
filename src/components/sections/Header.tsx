@@ -20,10 +20,15 @@ import { useColorModeValue } from "@chakra-ui/react";
 
 interface HeaderProps {
   dashboard?: boolean;
-  onDrawerToggle?: () => void;
+  onDrawerToggle: () => void;
+  drawerState: boolean;
 }
 
-export const Header: FC<HeaderProps> = ({ dashboard, onDrawerToggle }) => {
+export const Header: FC<HeaderProps> = ({
+  dashboard,
+  onDrawerToggle,
+  drawerState,
+}) => {
   const [user, loading] = useContext(AuthContext);
   const colorMode = useColorModeValue("white", "gray.800");
 
@@ -69,7 +74,15 @@ export const Header: FC<HeaderProps> = ({ dashboard, onDrawerToggle }) => {
               </MenuButton>
               <MenuList>
                 <MenuGroup title="Profile">
-                  <MenuItem>My Account</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      if (!drawerState) {
+                        onDrawerToggle();
+                      }
+                    }}
+                  >
+                    My Account
+                  </MenuItem>
                   <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                 </MenuGroup>
               </MenuList>

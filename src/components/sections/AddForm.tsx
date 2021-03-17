@@ -44,7 +44,7 @@ export const AddForm: FC<AddFormProps> = ({ onSubmit, tags }) => {
       >
         <FormControl>
           <FormLabel>Article url</FormLabel>
-          <Input name="url" type="text" ref={register({ required: true })} />
+          <Input name="url" type="url" ref={register({ required: true })} />
           <FormErrorMessage>
             {errors.url && errors.url.message}
           </FormErrorMessage>

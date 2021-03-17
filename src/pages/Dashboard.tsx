@@ -176,7 +176,11 @@ export const Dashboard: FC = () => {
 
   return (
     <Flex direction="column">
-      <Header dashboard onDrawerToggle={handleDrawerToggle} />
+      <Header
+        dashboard
+        drawerState={isOpen}
+        onDrawerToggle={handleDrawerToggle}
+      />
       <Stack
         direction="row"
         w="100%"
@@ -191,6 +195,7 @@ export const Dashboard: FC = () => {
           onClose={onClose}
           onSubmit={handleOnCreateArticle}
           tags={userTags.data || []}
+          activeTag={queryTag}
           onTagFormSubmit={handleOnCreateTag}
           onTagDelete={handleOnDeleteTag}
           isLoading={userTags.isLoading}
