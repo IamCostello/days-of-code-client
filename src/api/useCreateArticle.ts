@@ -1,14 +1,7 @@
 import { useToast } from "@chakra-ui/toast";
 import { useMutation, useQueryClient } from "react-query";
 import axiosClient from "../config/axios";
-import { ArticlesResponseData } from "./useArticles";
-
-export interface SavedData {
-  _id: string;
-  url: string;
-  archived: boolean;
-  tag: string;
-}
+import { ArticlesResponseData, SavedData } from "./useArticles";
 
 const useCreateArticle = (page: number, queryTag: string) => {
   const queryClient = useQueryClient();

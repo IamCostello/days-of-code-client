@@ -59,7 +59,7 @@ export const SideBar: FC<SideBarProps> = ({
   onQueryTagChange,
 }) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const [user, loading] = useContext(AuthContext);
+  const [user] = useContext(AuthContext);
   const colorMode = useColorModeValue("white", "gray.800");
   const colorModeAccent = useColorModeValue("gray.50", "gray.900");
   const [tagForm, setTagform] = useState("");
@@ -95,6 +95,12 @@ export const SideBar: FC<SideBarProps> = ({
           <Text fontSize="lg" paddingStart={2}>
             {user?.email}
           </Text>
+          <Text opacity="0.5" paddingStart={0}>
+            mailer service
+          </Text>
+          <Text fontSize="lg" paddingStart={2}>
+            Mailing service is currently inactive
+          </Text>
         </Stack>
 
         <Divider my={8} />
@@ -128,7 +134,7 @@ export const SideBar: FC<SideBarProps> = ({
                 <ListItem>
                   <ListIcon
                     as={ChevronRightIcon}
-                    boxSize={activeTag === tag ? 8 : 4}
+                    boxSize={activeTag === tag ? 6 : 4}
                     lineHeight={8}
                     verticalAlign="middle"
                   />
@@ -157,7 +163,9 @@ export const SideBar: FC<SideBarProps> = ({
               </Stack>
             ))
           ) : (
-            <p>No tags</p>
+            <Center w="100%" h="100%">
+              create a new tag below
+            </Center>
           )}
         </List>
 
@@ -165,7 +173,7 @@ export const SideBar: FC<SideBarProps> = ({
           <InputGroup
             mt={2}
             ps={2}
-            width="70%"
+            width="80%"
             margin="auto"
             pb={isLargerThan768 ? 16 : 0}
           >

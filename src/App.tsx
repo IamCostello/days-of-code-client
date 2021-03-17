@@ -1,3 +1,4 @@
+import { Center, Spinner } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Redirect } from "react-router";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -13,13 +14,36 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {!loading && (user ? <Redirect to="/dashboard" /> : <LandingPage />)}
+          {!loading ? (
+            user ? (
+              <Redirect to="/dashboard" />
+            ) : (
+              <LandingPage />
+            )
+          ) : (
+            <Center w="100vw" h="100vh">
+              <Spinner />
+            </Center>
+          )}
         </Route>
         <Route path="/signin">
           {user ? <Redirect to="dashboard" /> : <SignIn />}
         </Route>
         <Route path="/dashboard">
-          {!loading && (user ? <Dashboard /> : <Redirect to="/" />)}
+          {!loading ? (
+            user ? (
+              <Dashboard />
+            ) : (
+              <Redirect to="/" />
+            )
+          ) : (
+            <Center w="100vw" h="100vh">
+              <Spinner />
+            </Center>
+          )}
+        </Route>
+        <Route>
+          <Redirect to="/" />
         </Route>
       </Switch>
     </BrowserRouter>

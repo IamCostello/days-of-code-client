@@ -10,21 +10,19 @@ const axiosClient = axios.create({
 // });
 
 // axiosClient.interceptors.response.use((res) => {
-//   console.log("[RESPONSE]", res);
+// console.log("[RESPONSE]", res);
 //   return res;
 // });
 
 let authTokenInterceptor: number;
 
-export const addAuthTokenInterceptor = (token: string) => {
-  authTokenInterceptor = axiosClient.interceptors.request.use((req) => {
+export const addAuthTokenInterceptor = (token: string) =>
+  (authTokenInterceptor = axiosClient.interceptors.request.use((req) => {
     req.headers.authtoken = token;
     return req;
-  });
-};
+  }));
 
-export const ejectAuthTokenInterceptor = () => {
+export const ejectAuthTokenInterceptor = () =>
   axiosClient.interceptors.request.eject(authTokenInterceptor);
-};
 
 export default axiosClient;

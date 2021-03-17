@@ -1,6 +1,4 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -46,11 +44,7 @@ export const DrawerContainer: FC<DrawerContainerProps> = ({
         top="0"
         pt={12}
       >
-        <Stack direction="row" height="100px" py="16px">
-          <Button onClick={onClose} variant="ghost">
-            <HamburgerIcon />
-          </Button>
-        </Stack>
+        <Stack direction="row" height="100px" py="20px"></Stack>
         {children}
         <Flex
           mt={4}

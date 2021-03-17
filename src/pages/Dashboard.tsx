@@ -126,6 +126,7 @@ export const Dashboard: FC = () => {
           isLoading={isLoading}
           onArticleDelete={handleOnDeleteArticle}
           onArticleEdit={handleOnEditArticle}
+          activeTag={queryTag}
         />
       </Stack>
     </Flex>

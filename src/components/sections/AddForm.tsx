@@ -21,13 +21,7 @@ type AddFormInputs = {
 };
 
 export const AddForm: FC<AddFormProps> = ({ onSubmit, tags }) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    errors,
-    reset,
-  } = useForm<AddFormInputs>();
+  const { register, handleSubmit, errors, reset } = useForm<AddFormInputs>();
 
   return (
     <Stack spacing={4} p={2}>

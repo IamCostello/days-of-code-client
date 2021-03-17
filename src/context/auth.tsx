@@ -19,22 +19,21 @@ export const AuthStateProvider: FC = ({ children }) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setLoading(false);
-
-      if (user) {
-        setUser(user);
-
-        user.getIdToken(true).then((token) => {
+    auth.onAuthStateChanged((userData) => {
+      if (userData) {
+        userData.getIdToken(true).then((token) => {
           addAuthTokenInterceptor(token);
+          setUser(userData);
+          setLoading(false);
         });
       } else {
         queryClient.removeQueries("articles");
         setUser(null);
         ejectAuthTokenInterceptor();
+        setLoading(false);
       }
     });
-  }, []);
+  }, [queryClient]);
 
   return (
     <AuthContext.Provider value={[user, loading]}>

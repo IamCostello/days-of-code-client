@@ -5,9 +5,7 @@ import axiosClient from "../config/axios";
 import { auth, providerGoogle } from "../config/firebase";
 import { FaGoogle } from "react-icons/fa";
 
-interface SignInProps {}
-
-export const SignIn: FC<SignInProps> = ({}) => {
+export const SignIn: FC = () => {
   const handleNewLogin = (token: string) => {
     axiosClient.post("/auth/signup", {}, { headers: { authtoken: token } });
   };
