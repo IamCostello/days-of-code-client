@@ -20,12 +20,14 @@ interface HeaderProps {
   dashboard?: boolean;
   onDrawerToggle: () => void;
   drawerState: boolean;
+  onLogin: () => void;
 }
 
 export const Header: FC<HeaderProps> = ({
   dashboard,
   onDrawerToggle,
   drawerState,
+  onLogin,
 }) => {
   const [user, loading] = useContext(AuthContext);
   const colorMode = useColorModeValue("white", "gray.800");
@@ -83,7 +85,7 @@ export const Header: FC<HeaderProps> = ({
               </MenuList>
             </Menu>
           ) : (
-            <Link to="/signin">Login</Link>
+            <Button onClick={onLogin}>Login</Button>
           ))}
       </Box>
     </Flex>

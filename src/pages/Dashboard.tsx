@@ -95,6 +95,7 @@ export const Dashboard: FC = () => {
         dashboard
         drawerState={isOpen}
         onDrawerToggle={handleDrawerToggle}
+        onLogin={() => null}
       />
       <Stack
         direction="row"
