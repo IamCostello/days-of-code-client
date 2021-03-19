@@ -4,6 +4,14 @@ MERN stack application written in typescript that lets user insert, edit and del
 ### Client: https://github.com/IamCostello/days-of-code-client
 ### Server: https://github.com/IamCostello/days-of-code-server
 
+<p align="center">
+ <img src="https://i.imgur.com/jjlkCWS.jpg" alt="desktop"/>
+</p>
+<p align="center">
+ <img src="https://i.imgur.com/BbvxcbI.jpg" alt="mobile"/>
+ <img src="https://i.imgur.com/tjuTCYQ.jpg" alt="mobile-drawer"/>
+</p>
+
 ## Built with
 - <a href="https://create-react-app.dev" title="create-react-app">Create-react-app</a>
 - <a href="https://react-query.tanstack.com" title="react-query">React query</a>
