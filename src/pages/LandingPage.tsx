@@ -14,12 +14,10 @@ import {
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import React, { FC, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { Header } from "../components/sections/Header";
 import { LoginButton } from "../components/ui/LoginButton";
 import { StyleModeButton } from "../components/ui/StyleModeButton";
 import axiosClient from "../config/axios";
 import { auth, providerGoogle } from "../config/firebase";
-import { Link } from "react-router-dom";
 
 interface LandingPageProps {}
 
@@ -32,14 +30,13 @@ enum Section {
 export const LandingPage: FC<LandingPageProps> = ({}) => {
   const [activeSection, setActiveSection] = useState<Section>(Section.aboutApp);
   const [isLargerThan1024] = useMediaQuery("(min-width: 1024px)");
-  const [isMobile, set] = useMediaQuery("(max-width: 425px)");
+  const [isMobile] = useMediaQuery("(max-width: 425px)");
   const colorMode = useColorModeValue("white", "gray.800");
-  const aboutMeColor = useColorModeValue("gray.50", "gray.800");
-  const aboutAppColor = useColorModeValue("#e5eafd", "gray.900");
   const [showMenu, setShowMenu] = useState(false);
 
   const handleSwitchSection = (section: Section) => {
     setActiveSection(section);
+    setShowMenu(false);
   };
 
   const handleMenuToggle = () => {
