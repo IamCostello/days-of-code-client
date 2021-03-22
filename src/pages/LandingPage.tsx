@@ -161,7 +161,7 @@ export const LandingPage: FC<LandingPageProps> = ({}) => {
         px={8}
       >
         {activeSection === "login" ? (
-          <Center w="100%" my="auto" mx={0} px={8}>
+          <Center w="100%" h={showMenu ? "100%" : "50vh"} mx={0} px={8}>
             <Stack>
               <Heading px={2}>Login to start your journey</Heading>
               <Text px={4}>Please select your login option</Text>
